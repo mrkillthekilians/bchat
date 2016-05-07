@@ -1,0 +1,49 @@
+allprojects {
+    task hello << { task -> println "I'm $task.project.name" }
+}
+
+subprojects {
+    apply plugin: "java"
+    apply plugin: "idea"
+
+    repositories {
+        mavenCentral()
+    }
+}
+
+// to run one of the subprojects use:
+// gradle common:build
+project(':server') {
+    task runServer(type: JavaExec) {
+        classpath = sourceSets.main.runtimeClasspath
+
+        main = 'ch.joil.joilchat.server.JoilChatServer'
+
+        // arguments to pass to the application
+        args '7777'
+    }
+
+    jar {
+        manifest {
+            attributes 'Main-Class': 'ch.joil.joilchat.server.JoilChatServer'
+        }
+    }
+}
+
+project(':client') {
+    task runClient(type: JavaExec) {
+        classpath = sourceSets.main.runtimeClasspath
+
+
+        main = 'ch.joil.joilchat.client.JoilChatClient2'
+        // arguments to pass to the application
+        args '7777'
+    }
+
+    jar {
+        manifest {
+            attributes 'Main-Class': 'ch.joil.joilchat.client.JoilChatClient2'
+        }
+    }
+}
+
