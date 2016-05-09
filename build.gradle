@@ -35,14 +35,14 @@ project(':client') {
         classpath = sourceSets.main.runtimeClasspath
 
 
-        main = 'ch.joil.joilchat.client.JoilChatClient2'
+        main = 'ch.joil.joilchat.client.JoilChatClient'
         // arguments to pass to the application
         args '7777'
     }
 
     jar {
         manifest {
-            attributes 'Main-Class': 'ch.joil.joilchat.client.JoilChatClient2'
+            attributes 'Main-Class': 'ch.joil.joilchat.client.JoilChatClient'
         }
     }
 }

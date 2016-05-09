@@ -1,8 +1,8 @@
 package ch.joil.joilchat.client;
 
-import java.io.DataInputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.util.Scanner;
 
 /**
  * Created by bananatreedad on 07/05/16.
@@ -10,7 +10,7 @@ import java.net.Socket;
 public class ChatClientThread extends Thread {
     ChatClient chatClient = null;
     Socket socket = null;
-    DataInputStream input = null;
+    Scanner scanner = null;
 
     private volatile Thread blinker = null;
 
@@ -27,18 +27,16 @@ public class ChatClientThread extends Thread {
     @Override
     public void run() {
         while(blinker != null) {
-            try {
-                chatClient.handle(input.readUTF());
-            } catch (IOException e) {
-                System.out.println("Listening error:" + e.getMessage());
-                halt();
+            if (scanner.hasNextLine()) {
+                chatClient.handle(scanner.nextLine());
             }
+//                halt();
         }
     }
 
     private void open() {
         try {
-            input = new DataInputStream(socket.getInputStream());
+            scanner = new Scanner(socket.getInputStream());
         } catch (IOException e) {
             System.out.println("Error opening input stream: " + e.getMessage());
             this.halt();
@@ -47,7 +45,7 @@ public class ChatClientThread extends Thread {
 
     public void close() {
         try {
-            if (input != null) input.close();
+            if (scanner != null) scanner.close();
             if (socket != null) socket.close();
         } catch (IOException e) {
             System.out.println("Closing error...");

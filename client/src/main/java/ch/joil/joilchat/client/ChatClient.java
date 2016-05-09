@@ -1,8 +1,10 @@
 package ch.joil.joilchat.client;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.Scanner;
 
 /**
  * Created by bananatreedad on 07/05/16.
@@ -11,8 +13,8 @@ public class ChatClient implements Runnable {
 
     private Socket socket = null;
     private Thread thread = null;
-    private DataInputStream in = null;
-    private DataOutputStream out = null;
+    private Scanner scanner = null;
+    private PrintWriter writer = null;
     private ChatClientThread clientThread = null;
 
     public ChatClient(String serverName, int serverPort) {
@@ -34,11 +36,10 @@ public class ChatClient implements Runnable {
     }
 
     public void handle(String s) {
-        if(s.equals("/bye")) {
+        if (s.equals("/bye")) {
             System.out.println("GOOD BYE. Press RETURN to exit...");
             stop();
-        }
-        else {
+        } else {
             System.out.println(s);
         }
     }
@@ -47,22 +48,20 @@ public class ChatClient implements Runnable {
     public void run() {
         while (thread != null) {
             // see https://docs.oracle.com/javase/7/docs/api/java/io/DataInputStream.html
-            BufferedReader d
-                    = new BufferedReader(new InputStreamReader(in));
-            try {
-                out.writeUTF(d.readLine());
-                out.flush();
-            } catch (IOException e) {
-                System.out.println("Sending error: " + e.getMessage());
-                stop();
+
+            if (scanner.hasNextLine()) {
+                String s = scanner.nextLine();
+                writer.println(s);
             }
+            //TODO mal noch fixen
+//                stop();
 
         }
     }
 
     private void start() throws IOException {
-        in = new DataInputStream(new BufferedInputStream(System.in));
-        out = new DataOutputStream(socket.getOutputStream());
+        scanner = new Scanner(System.in);
+        writer = new PrintWriter(socket.getOutputStream(), true);
 
         if (thread == null) {
             clientThread = new ChatClientThread(this, socket);
@@ -77,8 +76,8 @@ public class ChatClient implements Runnable {
             thread = null;
         }
         try {
-            if (in != null) in.close();
-            if (out != null) out.close();
+            if (scanner != null) scanner.close();
+            if (writer != null) writer.close();
             if (socket != null) socket.close();
 
         } catch (IOException e) {

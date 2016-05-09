@@ -1,7 +1,9 @@
 package ch.joil.joilchat.server;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.Scanner;
 
 /**
  * Created by bananatreedad on 06/05/16.
@@ -12,8 +14,9 @@ public class ChatServerThread extends Thread {
     private ChatServer chatServer = null;
     private Socket socket = null;
     private int ID = -1;
-    private DataInputStream in = null;
-    private DataOutputStream out = null;
+    private Scanner scanner = null;
+
+    private PrintWriter writer = null;
 
     private volatile Thread blinker = null;
 
@@ -33,38 +36,29 @@ public class ChatServerThread extends Thread {
         System.out.println("Server Thread " + ID + "running.");
 
         while (blinker != null) {
-            try {
-                chatServer.handle(ID, in.readUTF());
-            } catch (IOException e) {
-                System.err.println("Could not write to client #" + this.ID);
+            if (scanner.hasNextLine()) {
+                chatServer.handle(ID, scanner.nextLine());
+            } else {
                 halt();
             }
         }
-
     }
 
     public void halt() {
-        close();
         this.blinker = null;
     }
 
     public void send(String s) {
-        try {
-            out.writeUTF(s);
-            out.flush();
-
-        } catch (IOException e) {
-            System.out.println("Error while sending: " + e.getMessage());
-            chatServer.remove(this.ID);
-            halt();
-        }
+        writer.println(s);
+//            halt();
     }
 
     public void close() {
+        System.out.println("Closing connection to client with ID " + ID);
         try {
             if (socket != null) socket.close();
-            if (in != null) in.close();
-            if (out != null) out.close();
+            if (scanner != null) scanner.close();
+            if (writer != null) writer.close();
         } catch (IOException e) {
             System.out.println("Closing error...");
         }
@@ -72,8 +66,10 @@ public class ChatServerThread extends Thread {
 
     public void open() {
         try {
-            in = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
-            out = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
+
+            scanner = new Scanner(socket.getInputStream());
+            writer = new PrintWriter(socket.getOutputStream(), true);
+
         } catch (IOException e) {
             System.out.println("Error on opening Streams: " + e.getMessage());
         }
