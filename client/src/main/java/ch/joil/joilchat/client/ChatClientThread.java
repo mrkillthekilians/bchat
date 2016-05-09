@@ -8,14 +8,14 @@ import java.net.Socket;
  * Created by bananatreedad on 07/05/16.
  */
 public class ChatClientThread extends Thread {
-    ChatClient2 chatClient = null;
+    ChatClient chatClient = null;
     Socket socket = null;
     DataInputStream input = null;
 
     private volatile Thread blinker = null;
 
-    public ChatClientThread(ChatClient2 chatClient2, Socket socket) {
-        this.chatClient = chatClient2;
+    public ChatClientThread(ChatClient chatClient, Socket socket) {
+        this.chatClient = chatClient;
         this.socket = socket;
         open();
 

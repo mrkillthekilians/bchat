@@ -7,7 +7,7 @@ import java.net.UnknownHostException;
 /**
  * Created by bananatreedad on 07/05/16.
  */
-public class ChatClient2 implements Runnable {
+public class ChatClient implements Runnable {
 
     private Socket socket = null;
     private Thread thread = null;
@@ -15,7 +15,7 @@ public class ChatClient2 implements Runnable {
     private DataOutputStream out = null;
     private ChatClientThread clientThread = null;
 
-    public ChatClient2(String serverName, int serverPort) {
+    public ChatClient(String serverName, int serverPort) {
         System.out.println("Try to establish connection...");
 
         try {
