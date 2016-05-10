@@ -3,6 +3,7 @@ package ch.joil.joilchat.server;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 /**
@@ -19,6 +20,7 @@ public class ChatServerThread extends Thread {
     private PrintWriter writer = null;
 
     private volatile Thread blinker = null;
+    private String username = null;
 
     public ChatServerThread(ChatServer chatServer, Socket socket) {
         this.chatServer = chatServer;
@@ -36,21 +38,33 @@ public class ChatServerThread extends Thread {
         System.out.println("Server Thread " + ID + "running.");
 
         while (blinker != null) {
-            if (scanner.hasNextLine()) {
-                chatServer.handle(ID, scanner.nextLine());
-            } else {
+            try {
+                String s = scanner.nextLine();
+
+                if (this.username == null) {
+                    this.username = s;
+                    System.out.println("Set username of ID " + ID + " to " + this.username);
+//                    chatServer.handle(ID, username, s);
+                } else {
+                    chatServer.handle(ID, username, s);
+                }
+
+            } catch (NoSuchElementException ex) {
+                System.out.println("Client with ID " + ID + " disconnected.");
+                close();
                 halt();
             }
         }
     }
 
     public void halt() {
+        System.out.println("Halting ID " + ID);
         this.blinker = null;
     }
 
     public void send(String s) {
-        writer.println(s);
-//            halt();
+        if (!writer.checkError()) writer.println(s);
+        else halt();
     }
 
     public void close() {

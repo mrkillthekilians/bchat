@@ -53,11 +53,6 @@ public class ChatServer implements Runnable {
             System.out.println("Client Refused: Maximum count of connections reached (" + clients.length + ").");
             //// TODO: 06/05/16 add client informtion about not connection
         }
-        System.out.println("Client accepted: " + socket.getRemoteSocketAddress() + ", handling on port " + socket.getLocalPort());
-        ChatServerThread client = new ChatServerThread(this, socket);
-
-        client.open();
-        client.start();
     }
 
     private void start() {
@@ -86,13 +81,13 @@ public class ChatServer implements Runnable {
         return -1;
     }
 
-    public synchronized void handle(int id, String s) {
+    public synchronized void handle(int id, String username, String s) {
         if (s.equals("/bye")) {
             clients[findClient(id)].send("/bye");
             remove(id);
         } else {
             for (int i = 0; i < clientCount; i++) {
-                clients[i].send(id + ": " + s);
+                clients[i].send("[" + username + "] " + s);
             }
         }
     }

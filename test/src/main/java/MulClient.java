@@ -11,14 +11,13 @@ public class MulClient {
         try {
             server = new Socket("localhost", 3141);
             Scanner in = new Scanner(server.getInputStream());
-            PrintWriter out = new PrintWriter(server.getOutputStream());
+            PrintWriter out = new PrintWriter(server.getOutputStream(), true);
 
             while (true) {
 
                 Scanner inConsole = new Scanner(System.in);
 
                 out.println(inConsole.nextLine());
-                out.flush();
             }
 
 //            out.println( "2" );

@@ -2,6 +2,7 @@ package ch.joil.joilchat.client;
 
 import java.io.IOException;
 import java.net.Socket;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 /**
@@ -27,10 +28,13 @@ public class ChatClientThread extends Thread {
     @Override
     public void run() {
         while(blinker != null) {
-            if (scanner.hasNextLine()) {
+            try {
                 chatClient.handle(scanner.nextLine());
+            } catch (NoSuchElementException ex) {
+                System.out.println("Lost connection to server.");
+                close();
+                halt();
             }
-//                halt();
         }
     }
 

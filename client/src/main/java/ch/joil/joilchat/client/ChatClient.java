@@ -17,6 +17,8 @@ public class ChatClient implements Runnable {
     private PrintWriter writer = null;
     private ChatClientThread clientThread = null;
 
+    private String name = null;
+
     public ChatClient(String serverName, int serverPort) {
         System.out.println("Try to establish connection...");
 
@@ -47,15 +49,17 @@ public class ChatClient implements Runnable {
     @Override
     public void run() {
         while (thread != null) {
-            // see https://docs.oracle.com/javase/7/docs/api/java/io/DataInputStream.html
+            if (writer.checkError()) stop();
+            else if (this.name == null) {
+                System.out.print("Enter your username: ");
+                this.name = scanner.nextLine();
 
-            if (scanner.hasNextLine()) {
+                writer.println(name);
+            } else {
                 String s = scanner.nextLine();
+
                 writer.println(s);
             }
-            //TODO mal noch fixen
-//                stop();
-
         }
     }
 
@@ -71,7 +75,7 @@ public class ChatClient implements Runnable {
         }
     }
 
-    private void stop() {
+    public void stop() {
         if (thread != null) {
             thread = null;
         }
