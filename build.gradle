@@ -1,5 +1,6 @@
 allprojects {
     task hello << { task -> println "I'm $task.project.name" }
+
 }
 
 subprojects {
@@ -9,6 +10,10 @@ subprojects {
     repositories {
         mavenCentral()
     }
+
+    dependencies {
+        testCompile group: 'junit', name: 'junit', version: '4.+'
+    }
 }
 
 // to run one of the subprojects use:
@@ -17,12 +22,27 @@ project(':server') {
     task runServer(type: JavaExec) {
         classpath = sourceSets.main.runtimeClasspath
 
+        standardInput = System.in
+
         main = 'ch.joil.joilchat.server.JoilChatServer'
 
         // arguments to pass to the application
         args '7777'
     }
+    //-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005
 
+    task debugServer(type: JavaExec) {
+        classpath = sourceSets.main.runtimeClasspath
+
+        standardInput = System.in
+
+        debug = true
+
+        main = 'ch.joil.joilchat.server.JoilChatServer'
+
+        // arguments to pass to the application
+        args '7777'
+    }
     jar {
         manifest {
             attributes 'Main-Class': 'ch.joil.joilchat.server.JoilChatServer'
@@ -34,6 +54,7 @@ project(':client') {
     task runClient(type: JavaExec) {
         classpath = sourceSets.main.runtimeClasspath
 
+        standardInput = System.in
 
         main = 'ch.joil.joilchat.client.JoilChatClient'
         // arguments to pass to the application
@@ -47,3 +68,12 @@ project(':client') {
     }
 }
 
+project(':test') {
+    task runTest(type: JavaExec) {
+        classpath = sourceSets.main.runtimeClasspath
+
+        standardInput = System.in
+
+        main = 'ch.joil.joilchat.test.ClearConsole'
+    }
+}
