@@ -29,7 +29,6 @@ project(':server') {
         // arguments to pass to the application
         args '7777'
     }
-    //-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005
 
     task debugServer(type: JavaExec) {
         classpath = sourceSets.main.runtimeClasspath
@@ -43,6 +42,7 @@ project(':server') {
         // arguments to pass to the application
         args '7777'
     }
+
     jar {
         manifest {
             attributes 'Main-Class': 'ch.joil.joilchat.server.JoilChatServer'
@@ -58,7 +58,7 @@ project(':client') {
 
         main = 'ch.joil.joilchat.client.JoilChatClient'
         // arguments to pass to the application
-        args '7777'
+        args '147.87.42.165', '7777'
     }
 
     jar {

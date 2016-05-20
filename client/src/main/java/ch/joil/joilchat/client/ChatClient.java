@@ -19,6 +19,7 @@ public class ChatClient implements Runnable {
 
     private String name = null;
 
+
     public ChatClient(String serverName, int serverPort) {
         System.out.println("Try to establish connection...");
 
