@@ -4,22 +4,22 @@ A nice little CLI chat tool.
 
 ##installation
 1. Clone the directory to your computer
-```bash
+```sh
 git clone https://github.com/bananatreedad/bchat
 ```
 
 2. change into the bchat directory
-```bash
+```sh
 cd bchat
 ```
 From here you can run the server and/or client.
 
 ##run server
-```bash
+```sh
 ./gradlew runServer
 ```
 
 ##run client
-```bash
+```sh
 ./gradlew runServer
 ```
