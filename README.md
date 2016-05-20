@@ -3,11 +3,11 @@ A nice little CLI chat tool.
 
 
 ##installation
-1. Clone the directory to your computer
+- Clone the directory to your computer
 ```sh
 git clone https://github.com/bananatreedad/bchat
 ```
-2. change into the bchat directory
+- change into the bchat directory
 ```sh
 cd bchat
 ```
