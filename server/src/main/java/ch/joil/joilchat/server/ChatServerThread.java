@@ -63,8 +63,7 @@ public class ChatServerThread extends Thread {
     }
 
     public void send(String s) {
-        if (!writer.checkError()) writer.println(s);
-        else halt();
+        writer.println(s);
     }
 
     public void close() {
