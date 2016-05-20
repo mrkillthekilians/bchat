@@ -7,7 +7,6 @@ A nice little CLI chat tool.
 ```sh
 git clone https://github.com/bananatreedad/bchat
 ```
-
 2. change into the bchat directory
 ```sh
 cd bchat
