@@ -44,7 +44,7 @@ public class ChatClient implements Runnable {
             stop();
         } else {
             System.out.println(s);
-            //TODO wenn server abgkackt muss man notifiziert werden..
+            //TODO wenn server abkackt muss man notifiziert werden..
         }
     }
 
