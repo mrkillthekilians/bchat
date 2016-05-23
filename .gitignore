@@ -12,3 +12,6 @@ gradle-app.setting
 
 *.iml
 .idea/*
+*settings/
+*classpath
+.project
