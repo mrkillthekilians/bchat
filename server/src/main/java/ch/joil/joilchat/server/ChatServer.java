@@ -49,6 +49,7 @@ public class ChatServer implements Runnable {
             clients[clientCount].open();
             clients[clientCount].start();
             clientCount++;
+
         } else {
             System.out.println("Client Refused: Maximum count of connections reached (" + clients.length + ").");
             //// TODO: 06/05/16 add client informtion about not connection

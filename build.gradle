@@ -1,5 +1,4 @@
 allprojects {
-    task hello << { task -> println "I'm $task.project.name" }
 
 }
 
@@ -58,7 +57,7 @@ project(':client') {
 
         main = 'ch.joil.joilchat.client.JoilChatClient'
         // arguments to pass to the application
-        args '147.87.42.165', '7777'
+        args '192.168.192.30', '7777'
     }
 
     jar {
