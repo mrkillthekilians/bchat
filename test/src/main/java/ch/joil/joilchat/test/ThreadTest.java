@@ -8,11 +8,16 @@ public class ThreadTest implements Runnable {
 
         Thread thread = new Thread(new Ilian());
 
+        thread.setName("Ilian-Thread");
         thread.start();
 
         Thread thread2 = new Thread(new ThreadTest());
+        thread2.no
 
+        thread2.setName("Interface on Main");
         thread2.start();
+
+        ThreadUtils.dumpThreads();
 
     }
 
@@ -40,6 +45,22 @@ class Ilian implements Runnable {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+        }
+    }
+}
+
+class ThreadUtils {
+    public static void dumpThreads() {
+        final ThreadGroup group = Thread.currentThread().getThreadGroup();
+        final int activeCount = group.activeCount();
+
+        final Thread[] threads = new Thread[activeCount];
+        group.enumerate(threads);
+
+        System.out.println("Thread group " + group + " contains " + activeCount + " active threads.");
+
+        for(final Thread thread : threads) {
+            System.out.println("Thread: " + thread);
         }
     }
 }
