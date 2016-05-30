@@ -12,7 +12,6 @@ public class ThreadTest implements Runnable {
         thread.start();
 
         Thread thread2 = new Thread(new ThreadTest());
-        thread2.no
 
         thread2.setName("Interface on Main");
         thread2.start();
