@@ -58,7 +58,7 @@ project(':client') {
 
         main = 'ch.joil.joilchat.client.JoilChatClient'
         // arguments to pass to the application
-        args '192.168.192.30', '7777'
+        args 'alpha', '7777'
     }
 
     jar {
