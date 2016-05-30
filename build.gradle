@@ -24,7 +24,7 @@ project(':server') {
 
         standardInput = System.in
 
-        main = 'ch.joil.joilchat.server.JoilChatServer'
+        main = 'ch.joil.joilchat.newserver.JoilChatServer'
 
         // arguments to pass to the application
         args '7777'
@@ -37,7 +37,7 @@ project(':server') {
 
         debug = true
 
-        main = 'ch.joil.joilchat.server.JoilChatServer'
+        main = 'ch.joil.joilchat.newserver.JoilChatServer'
 
         // arguments to pass to the application
         args '7777'
@@ -45,7 +45,7 @@ project(':server') {
 
     jar {
         manifest {
-            attributes 'Main-Class': 'ch.joil.joilchat.server.JoilChatServer'
+            attributes 'Main-Class': 'ch.joil.joilchat.newserver.JoilChatServer'
         }
     }
 }
@@ -56,14 +56,14 @@ project(':client') {
 
         standardInput = System.in
 
-        main = 'ch.joil.joilchat.client.JoilChatClient'
+        main = 'ch.joil.joilchat.newclient.JoilChatClient'
         // arguments to pass to the application
         args 'alpha', '7777'
     }
 
     jar {
         manifest {
-            attributes 'Main-Class': 'ch.joil.joilchat.client.JoilChatClient'
+            attributes 'Main-Class': 'ch.joil.joilchat.newclient.JoilChatClient'
         }
     }
 }
