@@ -1,6 +1,6 @@
 package ch.joil.joilchat.newclient;
 
-//ChatClient edited by Ilian JÃ¤ger, 23.05.16
+//ChatClient edited by Ilian Jäger
 
 import java.net.Socket;
 import java.net.UnknownHostException;
