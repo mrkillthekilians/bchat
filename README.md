@@ -22,3 +22,5 @@ From here you can run the server and/or client.
 ```sh
 ./gradlew runServer
 ```
+
+add somethign
