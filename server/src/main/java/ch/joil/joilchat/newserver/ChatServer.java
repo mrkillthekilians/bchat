@@ -1,5 +1,7 @@
 package ch.joil.joilchat.newserver;
 
+import org.json.simple.JSONObject;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -55,7 +57,19 @@ public class ChatServer {
         System.out.println(" | Clientcount: " + clientCount);
     }
 
-    public void handle() {
+    public void handle(JSONObject object) {
+        try {
+            String username = (String) object.getOrDefault("username", "Anomymous");
+            String to_username = (String) object.getOrDefault("to", "all");
+            String message = (String) object.getOrDefault("message", "");
+
+            for (ChatServerThread client : clients) {
+                client.writeToClient(object.toJSONString());
+            }
+        } catch (Exception ex) {
+            System.out.println(ex.getStackTrace());
+        }
+
 
     }
 }
