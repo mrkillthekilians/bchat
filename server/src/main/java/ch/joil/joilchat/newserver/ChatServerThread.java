@@ -43,7 +43,6 @@ public class ChatServerThread extends Thread {
 
     @Override
     public void run() {
-        //TODO how do i close proper?
         blinker = true;
         while (blinker) {
             try {
@@ -51,7 +50,6 @@ public class ChatServerThread extends Thread {
             } catch (NoSuchElementException e) {
                 System.out.println("Halting connection");
                 blinker = false;
-               //TODO clientcount--
             }
         }
     }

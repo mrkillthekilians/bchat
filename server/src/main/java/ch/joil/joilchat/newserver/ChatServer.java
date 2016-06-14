@@ -38,7 +38,6 @@ public class ChatServer {
 
     private void startListening() throws IOException {
         while (clientCount < clients.length) {
-
             addThread(serverSocket.accept());
         }
     }
@@ -54,5 +53,9 @@ public class ChatServer {
         clientCount++;
 
         System.out.println(" | Clientcount: " + clientCount);
+    }
+
+    public void handle() {
+
     }
 }
