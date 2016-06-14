@@ -2,14 +2,14 @@ package ch.joil.joilchat.newclient;
 
 //ToServerThread edited by Ilian Jäger, 23.05.16
 
+import org.json.simple.JSONObject;
+
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
-
-import org.json.JSONObject;
 
 public class ToServerThread extends Thread {
 
