@@ -20,7 +20,6 @@ From here you can run the server and/or client.
 
 ##run client
 ```sh
-./gradlew runServer
+./gradlew runClient
 ```
 
-add somethign
